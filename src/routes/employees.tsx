@@ -2,10 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/employees')({
   component: EmployeesComponent,
-})
-
-function EmployeesComponent() {
-  const employees = [
+  loader: async () => [
     {
       id: 1,
       firstName: 'John',
@@ -61,7 +58,13 @@ function EmployeesComponent() {
       firstName: 'Ivy',
       lastName: 'Thomas',
     },
-  ]
+  ],
+})
+
+function EmployeesComponent() {
+  const employees = Route.useLoaderData()
+  console.table(employees)
+
   return (
     <div className="p-2">
       <h1 className="text-2xl">Employees</h1>

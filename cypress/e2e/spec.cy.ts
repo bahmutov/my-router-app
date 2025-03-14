@@ -80,12 +80,15 @@ describe('Tanstack router', () => {
   it('uses EmployeeAPI to load the data', () => {
     cy.visit('/employees', {
       onBeforeLoad(win) {
-        let employeeApi
+        let employeeApi: typeof import('../../src/api/employees').default
         Object.defineProperty(win, 'EmployeeAPI', {
           get() {
+            // @ts-ignore
             return employeeApi
           },
-          set(value) {
+          set(
+            value: typeof import('../../src/api/employees').default,
+          ) {
             cy.stub(value, 'get').as('get').resolves(employees)
           },
         })

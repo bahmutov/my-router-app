@@ -1,4 +1,5 @@
 import type { Employee } from '../../src/api/employees'
+import 'cypress-map'
 
 describe('Tanstack router', () => {
   const employees: Employee[] = [
@@ -104,6 +105,63 @@ describe('Tanstack router', () => {
     cy.get('.employee-list .employee').should(
       'have.length',
       employees.length,
+    )
+  })
+
+  it('fetches the data while showing the stale list', () => {
+    cy.intercept(
+      {
+        method: 'GET',
+        pathname: '/api/employees',
+        // we will return a different list
+        // on the next request
+        times: 1,
+      },
+      {
+        body: employees,
+        delay: 1000,
+      },
+    ).as('getEmployees')
+    cy.visit('/employees')
+    // confirm the first list is shown
+    const names = employees.map((e) => `${e.firstName} ${e.lastName}`)
+    cy.get('.employee-list .employee').should('read', names)
+    cy.wait('@getEmployees')
+    cy.contains('a', 'Home').click()
+    cy.contains('Welcome Home!')
+
+    cy.log('**return to the employees page with new data**')
+    cy.intercept(
+      {
+        method: 'GET',
+        pathname: '/api/employees',
+        times: 1,
+      },
+      {
+        body: [
+          {
+            id: 1,
+            firstName: 'John',
+            lastName: 'Doe',
+          },
+        ],
+        delay: 1000,
+      },
+    ).as('getNewEmployees')
+    cy.contains('a', 'Employees').click()
+    cy.location('pathname').should('equal', '/employees')
+    // the old list is shown immediately
+    // Note: use shorter timeouts to confirm the
+    // caching and request timing
+    cy.get('.employee-list .employee', { timeout: 100 }).should(
+      'read',
+      names,
+    )
+    // the new list is requested
+    cy.wait('@getNewEmployees', { timeout: 1000 })
+    cy.get('.employee-list .employee', { timeout: 100 }).should(
+      'read',
+      ['John Doe'],
     )
   })
 })

@@ -76,4 +76,31 @@ describe('Tanstack router', () => {
       employees.length,
     )
   })
+
+  it('uses EmployeeAPI to load the data', () => {
+    cy.visit('/employees', {
+      onBeforeLoad(win) {
+        let employeeApi
+        Object.defineProperty(win, 'EmployeeAPI', {
+          get() {
+            return employeeApi
+          },
+          set(value) {
+            cy.stub(value, 'get').as('get').resolves(employees)
+          },
+        })
+      },
+    })
+
+    cy.get('@get').should('have.been.calledOnce')
+    cy.contains('a', 'Employees').should(
+      'have.attr',
+      'data-status',
+      'active',
+    )
+    cy.get('.employee-list .employee').should(
+      'have.length',
+      employees.length,
+    )
+  })
 })

@@ -12,4 +12,9 @@ const EmployeesAPI = {
   },
 }
 
+if (window.Cypress) {
+  // @ts-ignore
+  window.EmployeeAPI = EmployeesAPI
+}
+
 export default EmployeesAPI

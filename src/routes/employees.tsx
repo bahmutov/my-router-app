@@ -5,6 +5,8 @@ import EmployeesAPI from '../api/employees'
 export const Route = createFileRoute('/employees')({
   component: EmployeesComponent,
   loader: EmployeesAPI.get,
+  // do not refresh the data if it is less than 30 seconds old
+  staleTime: 30_000,
 })
 
 function EmployeesComponent() {

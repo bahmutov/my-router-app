@@ -108,7 +108,8 @@ describe('Tanstack router', () => {
     )
   })
 
-  it('fetches the data while showing the stale list', () => {
+  // SKIP: assumes the data is stale immediately
+  it.skip('fetches the data while showing the stale list', () => {
     cy.intercept(
       {
         method: 'GET',
@@ -135,7 +136,6 @@ describe('Tanstack router', () => {
       {
         method: 'GET',
         pathname: '/api/employees',
-        times: 1,
       },
       {
         body: [
@@ -163,5 +163,30 @@ describe('Tanstack router', () => {
       'read',
       ['John Doe'],
     )
+  })
+
+  it('fetches the stale data after N milliseconds', () => {
+    cy.intercept('GET', '/api/employees', employees).as(
+      'getEmployees',
+    )
+    cy.clock()
+    cy.visit('/employees')
+    cy.wait('@getEmployees', { timeout: 100 })
+    cy.contains('a', 'Home').click()
+    cy.contains('Welcome Home!')
+    cy.contains('a', 'Employees').click()
+    cy.location('pathname').should('equal', '/employees')
+    // confirm the data is NOT fetched
+    cy.wait(500).get('@getEmployees.all').should('have.length', 1)
+
+    // make the app "think" that 40 seconds have passed
+    // and go to the "Employees" tab again
+    cy.contains('a', 'Home').click()
+    cy.contains('Welcome Home!')
+    cy.tick(40_000)
+    cy.contains('a', 'Employees').click()
+    cy.location('pathname').should('equal', '/employees')
+    // the data loader should have requested the employees again
+    cy.wait('@getEmployees', { timeout: 100 })
   })
 })

@@ -7,7 +7,7 @@ export interface Employee {
 const EmployeesAPI = {
   async get() {
     const req = await fetch('/api/employees')
-    const employees: Employee = await req.json()
+    const employees: Employee[] = await req.json()
     return employees
   },
 }

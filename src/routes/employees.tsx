@@ -68,9 +68,9 @@ function EmployeesComponent() {
   return (
     <div className="p-2">
       <h1 className="text-2xl">Employees</h1>
-      <ul>
+      <ul className="employee-list">
         {employees.map((employee) => (
-          <li key={employee.id}>
+          <li key={employee.id} className="employee">
             {employee.firstName} {employee.lastName}
           </li>
         ))}

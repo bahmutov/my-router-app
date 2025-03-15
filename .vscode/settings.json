@@ -8,5 +8,5 @@
   "files.readonlyInclude": {
     "**/routeTree.gen.ts": true
   },
-  "workbench.colorTheme": "Tinacious Design (High Contrast)"
+  "workbench.colorTheme": "Snazzy Operator"
 }

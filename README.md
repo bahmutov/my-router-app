@@ -4,6 +4,8 @@ A companion exercise application for [Up And Running With Tanstack Router and Re
 
 ## Learn more
 
+These videos are collected in the playlist [Testing The TanStack Router](https://www.youtube.com/playlist?list=PLP9o9QNnQuAbBgnsD7Lfm4W4NihQtqwks):
+
 - 📺 [Use Cypress Network Stub With TanStack Router](https://youtu.be/ZenyLL7hUSg)
 - 📺 [Stub The Method That Returns The Data To TanStack Router](https://youtu.be/bkCh7KNuq3U)
 - 📺 [Testing The TanStack Router "Stale Then Revalidate" Fetching Using Cypress](https://youtu.be/vhk4pgWrTPc)

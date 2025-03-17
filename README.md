@@ -10,3 +10,4 @@ These videos are collected in the playlist [Testing The TanStack Router](https:/
 - 📺 [Stub The Method That Returns The Data To TanStack Router](https://youtu.be/bkCh7KNuq3U)
 - 📺 [Testing The TanStack Router "Stale Then Revalidate" Fetching Using Cypress](https://youtu.be/vhk4pgWrTPc)
 - 📺 [Test How TanStack Router Refreshes Stale Data](https://youtu.be/49Aarc6eprQ)
+- 📺 [Testing Data Preload In TanStack Router](https://youtu.be/jg0th7iOaOY)

@@ -19,6 +19,7 @@
     "@vitejs/plugin-react": "^4.3.2",
     "cypress": "^14.2.0",
     "cypress-map": "^1.45.1",
+    "cypress-real-events": "^1.14.0",
     "prettier": "^3.5.3",
     "start-server-and-test": "^2.0.11",
     "typescript": "^5.8.2",

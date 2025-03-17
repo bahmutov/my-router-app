@@ -5,6 +5,9 @@ import EmployeesAPI from '../api/employees'
 export const Route = createFileRoute('/employees')({
   component: EmployeesComponent,
   loader: EmployeesAPI.get,
+  // preload the data when the user is likely to visit this component
+  // default is true
+  preload: true,
   // do not refresh the data if it is less than 30 seconds old
   staleTime: 30_000,
 })

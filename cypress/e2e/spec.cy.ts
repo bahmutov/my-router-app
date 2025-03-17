@@ -1,5 +1,6 @@
 import type { Employee } from '../../src/api/employees'
 import 'cypress-map'
+import 'cypress-real-events'
 
 describe('Tanstack router', () => {
   const employees: Employee[] = [
@@ -188,5 +189,16 @@ describe('Tanstack router', () => {
     cy.location('pathname').should('equal', '/employees')
     // the data loader should have requested the employees again
     cy.wait('@getEmployees', { timeout: 100 })
+  })
+
+  it('reloads the data when the user hovers over the link', () => {
+    cy.intercept('GET', '/api/employees', employees).as(
+      'getEmployees',
+    )
+    cy.visit('/')
+    // cy.realHover comes from cypress-real-events plugin
+    cy.contains('a', 'Employees').realHover()
+    // the data loader should have requested the employees
+    cy.wait('@getEmployees')
   })
 })

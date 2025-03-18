@@ -1,6 +1,4 @@
 import type { Employee } from '../../src/api/employees'
-import 'cypress-map'
-import 'cypress-real-events'
 
 describe('Tanstack router', () => {
   const employees: Employee[] = [

@@ -10,6 +10,12 @@ const EmployeesAPI = {
     const employees: Employee[] = await req.json()
     return employees
   },
+
+  async getEmployeeById(id: Employee['id']) {
+    const req = await fetch(`/api/employees/${id}`)
+    const employee: Employee = await req.json()
+    return employee
+  },
 }
 
 if (window.Cypress) {
